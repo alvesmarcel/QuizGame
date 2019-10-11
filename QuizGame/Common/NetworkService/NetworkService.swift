@@ -17,11 +17,17 @@
 
 import Foundation
 
-class NetworkService {
+protocol NetworkServiceInterface {
+    var session: URLSessionInterface { get }
+    init(session: URLSessionInterface)
+    func requestDataFromURL(url: URL, completionHandler: @escaping (_ data: Data?, _ error: Error?) -> Void)
+}
+
+class NetworkService: NetworkServiceInterface {
     
-    private let session: URLSessionInterface
+    let session: URLSessionInterface
     
-    init(session: URLSessionInterface) {
+    required init(session: URLSessionInterface) {
         self.session = session
     }
     

@@ -43,7 +43,7 @@ class NetworkServiceTests: XCTestCase {
     
     // MARK: - NetworkService Setup
     
-    var networkService: NetworkService!
+    var networkService: NetworkServiceInterface!
     let session = MockURLSession()
     let baseURL = URL(string: "https://codechallenge.arctouch.com/quiz/1")!
 
