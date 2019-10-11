@@ -11,7 +11,20 @@
 		28066A8A2350FCEF003BBC7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28066A882350FCEF003BBC7F /* LaunchScreen.storyboard */; };
 		28066AA623510FC3003BBC7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28066AA523510FC3003BBC7F /* AppDelegate.swift */; };
 		28066AA823510FD6003BBC7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28066AA723510FD6003BBC7F /* SceneDelegate.swift */; };
+		28FDC845235115540046AD09 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC844235115540046AD09 /* NetworkService.swift */; };
+		28FDC84B235116E50046AD09 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */; };
+		28FDC84D23511CAF0046AD09 /* URLSessionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		28066AB823511406003BBC7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28066A722350FCED003BBC7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28066A792350FCED003BBC7F;
+			remoteInfo = QuizGame;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		28066A7A2350FCED003BBC7F /* QuizGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,10 +33,22 @@
 		28066A8B2350FCEF003BBC7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28066AA523510FC3003BBC7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28066AA723510FD6003BBC7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		28066AB323511406003BBC7F /* QuizGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		28066AB723511406003BBC7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/alvesmarcel/Development/QuizGame/QuizGameTests/Info.plist; sourceTree = "<absolute>"; };
+		28FDC844235115540046AD09 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		28066A772350FCED003BBC7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28066AB023511406003BBC7F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				28066A7C2350FCED003BBC7F /* QuizGame */,
+				28066AB423511406003BBC7F /* QuizGameTests */,
 				28066A7B2350FCED003BBC7F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				28066A7A2350FCED003BBC7F /* QuizGame.app */,
+				28066AB323511406003BBC7F /* QuizGameTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				28066AA323510F9B003BBC7F /* Common */,
+				28066AAA235112C9003BBC7F /* Modules */,
 				28066A96235108E3003BBC7F /* Resources */,
 				28066A9723510900003BBC7F /* SupportFiles */,
 			);
@@ -80,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				28066AA423510FA1003BBC7F /* Delegates */,
+				28FDC843235114990046AD09 /* NetworkService */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -91,6 +120,63 @@
 				28066AA723510FD6003BBC7F /* SceneDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		28066AAA235112C9003BBC7F /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				28066AAB235112D2003BBC7F /* HomeScreen */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		28066AAB235112D2003BBC7F /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				28066AAC235112DC003BBC7F /* UserInterface */,
+				28066AAD235112E6003BBC7F /* ApplicationLogic */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		28066AAC235112DC003BBC7F /* UserInterface */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserInterface;
+			sourceTree = "<group>";
+		};
+		28066AAD235112E6003BBC7F /* ApplicationLogic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ApplicationLogic;
+			sourceTree = "<group>";
+		};
+		28066AB423511406003BBC7F /* QuizGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				28FDC846235116970046AD09 /* NetworkServiceTests */,
+				28066AB723511406003BBC7F /* Info.plist */,
+			);
+			path = QuizGameTests;
+			sourceTree = "<group>";
+		};
+		28FDC843235114990046AD09 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				28FDC844235115540046AD09 /* NetworkService.swift */,
+				28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		28FDC846235116970046AD09 /* NetworkServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */,
+			);
+			path = NetworkServiceTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,6 +199,24 @@
 			productReference = 28066A7A2350FCED003BBC7F /* QuizGame.app */;
 			productType = "com.apple.product-type.application";
 		};
+		28066AB223511406003BBC7F /* QuizGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28066ABA23511406003BBC7F /* Build configuration list for PBXNativeTarget "QuizGameTests" */;
+			buildPhases = (
+				28066AAF23511406003BBC7F /* Sources */,
+				28066AB023511406003BBC7F /* Frameworks */,
+				28066AB123511406003BBC7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				28066AB923511406003BBC7F /* PBXTargetDependency */,
+			);
+			name = QuizGameTests;
+			productName = QuizGameTests;
+			productReference = 28066AB323511406003BBC7F /* QuizGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -126,6 +230,10 @@
 					28066A792350FCED003BBC7F = {
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1100;
+					};
+					28066AB223511406003BBC7F = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 28066A792350FCED003BBC7F;
 					};
 				};
 			};
@@ -143,6 +251,7 @@
 			projectRoot = "";
 			targets = (
 				28066A792350FCED003BBC7F /* QuizGame */,
+				28066AB223511406003BBC7F /* QuizGameTests */,
 			);
 		};
 /* End PBXProject section */
@@ -157,6 +266,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		28066AB123511406003BBC7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -164,12 +280,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FDC84D23511CAF0046AD09 /* URLSessionProtocols.swift in Sources */,
 				28066AA623510FC3003BBC7F /* AppDelegate.swift in Sources */,
+				28FDC845235115540046AD09 /* NetworkService.swift in Sources */,
 				28066AA823510FD6003BBC7F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		28066AAF23511406003BBC7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28FDC84B235116E50046AD09 /* NetworkServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		28066AB923511406003BBC7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28066A792350FCED003BBC7F /* QuizGame */;
+			targetProxy = 28066AB823511406003BBC7F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		28066A882350FCEF003BBC7F /* LaunchScreen.storyboard */ = {
@@ -338,6 +472,46 @@
 			};
 			name = Release;
 		};
+		28066ABB23511406003BBC7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z2U9XN2WL3;
+				INFOPLIST_FILE = QuizGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alvesmarcel.QuizGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuizGame.app/QuizGame";
+			};
+			name = Debug;
+		};
+		28066ABC23511406003BBC7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z2U9XN2WL3;
+				INFOPLIST_FILE = QuizGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alvesmarcel.QuizGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuizGame.app/QuizGame";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -355,6 +529,15 @@
 			buildConfigurations = (
 				28066A8F2350FCEF003BBC7F /* Debug */,
 				28066A902350FCEF003BBC7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28066ABA23511406003BBC7F /* Build configuration list for PBXNativeTarget "QuizGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28066ABB23511406003BBC7F /* Debug */,
+				28066ABC23511406003BBC7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
