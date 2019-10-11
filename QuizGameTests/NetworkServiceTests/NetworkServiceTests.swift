@@ -57,7 +57,7 @@ class NetworkServiceTests: XCTestCase {
     func testRequestStart() {
         let dataTask = MockURLSessionDataTask()
         session.nextDataTask = dataTask
-        networkService.requestDataFromURL(url: baseURL) { (_, _) in }
+        networkService.requestData(fromURL: baseURL) { (_, _) in }
         XCTAssert(dataTask.resumeWasCalled)
     }
     
@@ -68,7 +68,7 @@ class NetworkServiceTests: XCTestCase {
         var actualData: Data?
         var actualError: Error?
         
-        networkService.requestDataFromURL(url: baseURL) { (data, error) in
+        networkService.requestData(fromURL: baseURL) { (data, error) in
             actualData = data
             actualError = error
         }
@@ -84,7 +84,7 @@ class NetworkServiceTests: XCTestCase {
         var actualData: Data?
         var actualError: Error?
         
-        networkService.requestDataFromURL(url: baseURL) { (data, error) in
+        networkService.requestData(fromURL: baseURL) { (data, error) in
             actualData = data
             actualError = error
         }

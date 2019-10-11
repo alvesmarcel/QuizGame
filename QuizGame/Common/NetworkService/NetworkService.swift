@@ -20,7 +20,7 @@ import Foundation
 protocol NetworkServiceInterface {
     var session: URLSessionInterface { get }
     init(session: URLSessionInterface)
-    func requestDataFromURL(url: URL, completionHandler: @escaping (_ data: Data?, _ error: Error?) -> Void)
+    func requestData(fromURL url: URL, completionHandler: @escaping (_ data: Data?, _ error: Error?) -> Void)
 }
 
 class NetworkService: NetworkServiceInterface {
@@ -31,7 +31,7 @@ class NetworkService: NetworkServiceInterface {
         self.session = session
     }
     
-    func requestDataFromURL(url: URL, completionHandler: @escaping (_ data: Data?, _ error: Error?) -> Void) {
+    func requestData(fromURL url: URL, completionHandler: @escaping (_ data: Data?, _ error: Error?) -> Void) {
         let task = session.dataTask(with: url) {(data, _, error) in
             guard let receivedData = data else {
                 completionHandler(nil, error)
