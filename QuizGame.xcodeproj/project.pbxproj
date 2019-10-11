@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		28066A872350FCEF003BBC7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28066A862350FCEF003BBC7F /* Assets.xcassets */; };
 		28066A8A2350FCEF003BBC7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28066A882350FCEF003BBC7F /* LaunchScreen.storyboard */; };
+		28066AA623510FC3003BBC7F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28066AA523510FC3003BBC7F /* AppDelegate.swift */; };
+		28066AA823510FD6003BBC7F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28066AA723510FD6003BBC7F /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -16,6 +18,8 @@
 		28066A862350FCEF003BBC7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28066A892350FCEF003BBC7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28066A8B2350FCEF003BBC7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28066AA523510FC3003BBC7F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		28066AA723510FD6003BBC7F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +52,7 @@
 		28066A7C2350FCED003BBC7F /* QuizGame */ = {
 			isa = PBXGroup;
 			children = (
+				28066AA323510F9B003BBC7F /* Common */,
 				28066A96235108E3003BBC7F /* Resources */,
 				28066A9723510900003BBC7F /* SupportFiles */,
 			);
@@ -69,6 +74,23 @@
 				28066A8B2350FCEF003BBC7F /* Info.plist */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		28066AA323510F9B003BBC7F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				28066AA423510FA1003BBC7F /* Delegates */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		28066AA423510FA1003BBC7F /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				28066AA523510FC3003BBC7F /* AppDelegate.swift */,
+				28066AA723510FD6003BBC7F /* SceneDelegate.swift */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -103,6 +125,7 @@
 				TargetAttributes = {
 					28066A792350FCED003BBC7F = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1100;
 					};
 				};
 			};
@@ -141,6 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28066AA623510FC3003BBC7F /* AppDelegate.swift in Sources */,
+				28066AA823510FD6003BBC7F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,16 +301,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z2U9XN2WL3;
 				INFOPLIST_FILE = QuizGame/SupportFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.alvesmarcel.QuizGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -295,10 +322,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z2U9XN2WL3;
 				INFOPLIST_FILE = QuizGame/SupportFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
