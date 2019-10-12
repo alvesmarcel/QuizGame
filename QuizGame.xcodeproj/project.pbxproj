@@ -16,6 +16,7 @@
 		28A42A1623520BB600BB39C6 /* QuizPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42A1523520BB600BB39C6 /* QuizPresenter.swift */; };
 		28A42A1823524F7500BB39C6 /* malformed_json.json in Resources */ = {isa = PBXBuildFile; fileRef = 28A42A1723524F7500BB39C6 /* malformed_json.json */; };
 		28A42A1B23525E6900BB39C6 /* InteractorMockClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */; };
+		28F31AE0235264470022C64C /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F31ADF235264470022C64C /* QuizView.swift */; };
 		28FDC845235115540046AD09 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC844235115540046AD09 /* NetworkService.swift */; };
 		28FDC84B235116E50046AD09 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */; };
 		28FDC84D23511CAF0046AD09 /* URLSessionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */; };
@@ -49,6 +50,7 @@
 		28A42A1523520BB600BB39C6 /* QuizPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizPresenter.swift; sourceTree = "<group>"; };
 		28A42A1723524F7500BB39C6 /* malformed_json.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = malformed_json.json; sourceTree = "<group>"; };
 		28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorMockClasses.swift; sourceTree = "<group>"; };
+		28F31ADF235264470022C64C /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		28FDC844235115540046AD09 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocols.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		28066AAB235112D2003BBC7F /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
+				28F31AE123526AB60022C64C /* Errors */,
 				28066AAC235112DC003BBC7F /* UserInterface */,
 				28066AAD235112E6003BBC7F /* ApplicationLogic */,
 			);
@@ -160,6 +163,7 @@
 		28066AAC235112DC003BBC7F /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				28F31ADE235264370022C64C /* View */,
 				28A42A1423520BA700BB39C6 /* Presenter */,
 			);
 			path = UserInterface;
@@ -211,6 +215,22 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		28F31ADE235264370022C64C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				28F31ADF235264470022C64C /* QuizView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		28F31AE123526AB60022C64C /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				28A42A122352080500BB39C6 /* QuizRequestError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		28FDC843235114990046AD09 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,7 +260,6 @@
 		28FDC853235129A60046AD09 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				28A42A122352080500BB39C6 /* QuizRequestError.swift */,
 				28FDC854235129BA0046AD09 /* QuizResource.swift */,
 			);
 			path = Entity;
@@ -379,6 +398,7 @@
 				28066AA623510FC3003BBC7F /* AppDelegate.swift in Sources */,
 				28FDC8522351293F0046AD09 /* QuizInteractor.swift in Sources */,
 				28FDC845235115540046AD09 /* NetworkService.swift in Sources */,
+				28F31AE0235264470022C64C /* QuizView.swift in Sources */,
 				28066AA823510FD6003BBC7F /* SceneDelegate.swift in Sources */,
 				28A42A1623520BB600BB39C6 /* QuizPresenter.swift in Sources */,
 			);
