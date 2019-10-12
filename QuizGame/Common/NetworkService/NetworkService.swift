@@ -19,7 +19,6 @@ import Foundation
 
 protocol NetworkServiceInterface {
     var session: URLSessionInterface { get }
-    init(session: URLSessionInterface)
     func requestData(fromURL url: URL, completionHandler: @escaping (_ data: Data?, _ error: Error?) -> Void)
 }
 
@@ -27,7 +26,7 @@ class NetworkService: NetworkServiceInterface {
     
     let session: URLSessionInterface
     
-    required init(session: URLSessionInterface) {
+    init(session: URLSessionInterface) {
         self.session = session
     }
     
