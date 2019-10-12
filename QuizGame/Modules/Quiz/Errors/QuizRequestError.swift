@@ -14,21 +14,9 @@
 //  ------------------------------------------------------------------------
 //  ABSTRACT:
 //      QuizRequestError represents the errors that can happen when a quiz is requested.
-//      The localizedDescription is used by the Interactor to pass a proper message to the Presenter.
 
 enum QuizRequestError: Error {
     case invalidQuizName
     case connectionError
     case jsonParsingError
-    
-    var localizedDescription: String {
-        switch self {
-        case .invalidQuizName:
-            return "The quiz name is invalid. Try choosing another quiz."
-        case .connectionError:
-            return "There was a connection error. Check your internet connection."
-        case .jsonParsingError:
-            return "The Internet connection appears to be offline."
-        }
-    }
 }

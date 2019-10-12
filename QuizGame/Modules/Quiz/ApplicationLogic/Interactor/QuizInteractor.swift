@@ -28,7 +28,7 @@ protocol QuizInteractorInterface: AnyObject {
 
 protocol QuizInteractorDelegate: AnyObject {
     func didRetrieveQuiz(quizQuestion: String, quizAnswer: [String])
-    func retrievingQuizFailed(with message: String)
+    func retrievingQuizFailed(with error: QuizRequestError)
 }
 
 class QuizInteractor: QuizInteractorInterface {
@@ -43,7 +43,7 @@ class QuizInteractor: QuizInteractorInterface {
     func requestNewQuiz(withName quizName: String) {
         guard let quizURL = quizNameToURL(quizName: quizName) else {
             // The quiz name is invalid
-            presenter?.retrievingQuizFailed(with: QuizRequestError.invalidQuizName.localizedDescription)
+            presenter?.retrievingQuizFailed(with: .invalidQuizName)
             return
         }
         
@@ -52,7 +52,7 @@ class QuizInteractor: QuizInteractorInterface {
                 // Inform the presenter that we had a connection error
                 // Currently, we don't handle other types of network error,
                 // so there's no need to use the error information provided by the closure
-                self?.presenter?.retrievingQuizFailed(with: QuizRequestError.connectionError.localizedDescription)
+                self?.presenter?.retrievingQuizFailed(with: .connectionError)
                 return
             }
             
@@ -64,7 +64,7 @@ class QuizInteractor: QuizInteractorInterface {
                 self?.presenter?.didRetrieveQuiz(quizQuestion: quiz.question, quizAnswer: quiz.answer)
             } catch {
                 // Server Error: The JSON given by the server cannot be properly parsed
-                self?.presenter?.retrievingQuizFailed(with: QuizRequestError.jsonParsingError.localizedDescription)
+                self?.presenter?.retrievingQuizFailed(with: .jsonParsingError)
             }
             
         }
