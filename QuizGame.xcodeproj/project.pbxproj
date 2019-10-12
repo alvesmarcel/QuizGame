@@ -18,6 +18,7 @@
 		28A42A1B23525E6900BB39C6 /* InteractorMockClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */; };
 		28F31AE0235264470022C64C /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F31ADF235264470022C64C /* QuizView.swift */; };
 		28F31AE323528E100022C64C /* QuizView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F31AE223528E100022C64C /* QuizView.xib */; };
+		28F31AE523528EF10022C64C /* QuizModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F31AE423528EF10022C64C /* QuizModuleFactory.swift */; };
 		28FDC845235115540046AD09 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC844235115540046AD09 /* NetworkService.swift */; };
 		28FDC84B235116E50046AD09 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */; };
 		28FDC84D23511CAF0046AD09 /* URLSessionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */; };
@@ -53,6 +54,7 @@
 		28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorMockClasses.swift; sourceTree = "<group>"; };
 		28F31ADF235264470022C64C /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		28F31AE223528E100022C64C /* QuizView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuizView.xib; sourceTree = "<group>"; };
+		28F31AE423528EF10022C64C /* QuizModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModuleFactory.swift; sourceTree = "<group>"; };
 		28FDC844235115540046AD09 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocols.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		28066AAB235112D2003BBC7F /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
+				28F31AE423528EF10022C64C /* QuizModuleFactory.swift */,
 				28F31AE123526AB60022C64C /* Errors */,
 				28066AAC235112DC003BBC7F /* UserInterface */,
 				28066AAD235112E6003BBC7F /* ApplicationLogic */,
@@ -399,6 +402,7 @@
 				28FDC84D23511CAF0046AD09 /* URLSessionProtocols.swift in Sources */,
 				28FDC855235129BA0046AD09 /* QuizResource.swift in Sources */,
 				28A42A132352080500BB39C6 /* QuizRequestError.swift in Sources */,
+				28F31AE523528EF10022C64C /* QuizModuleFactory.swift in Sources */,
 				28066AA623510FC3003BBC7F /* AppDelegate.swift in Sources */,
 				28FDC8522351293F0046AD09 /* QuizInteractor.swift in Sources */,
 				28FDC845235115540046AD09 /* NetworkService.swift in Sources */,
