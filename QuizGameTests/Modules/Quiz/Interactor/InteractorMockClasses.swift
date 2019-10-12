@@ -22,7 +22,7 @@ class MockPresenter: QuizInteractorDelegate {
     
     var expectedQuestion: String?
     var expectedAnswer: [String]?
-    var expectedErrorMessage: String?
+    var expectedError: QuizRequestError?
     var successExpectation: XCTestExpectation?
     var failureExpectation: XCTestExpectation?
     
@@ -32,8 +32,8 @@ class MockPresenter: QuizInteractorDelegate {
         successExpectation!.fulfill()
     }
     
-    func retrievingQuizFailed(with message: String) {
-        XCTAssertEqual(expectedErrorMessage, message)
+    func retrievingQuizFailed(with error: QuizRequestError) {
+        XCTAssertEqual(expectedError, error)
         failureExpectation!.fulfill()
     }
     

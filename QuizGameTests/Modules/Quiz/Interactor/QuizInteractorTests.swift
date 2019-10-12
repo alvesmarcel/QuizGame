@@ -39,7 +39,7 @@ class QuizInteractorTests: XCTestCase {
     /// Test if the correct error message is passed to the Presenter if an invalid quiz name is informed.
     func testGetNewQuiz_InvalidQuizName() {
         // Inject expected error, and failure expectation in the mocked presenter
-        quizPresenter.expectedErrorMessage = QuizRequestError.invalidQuizName.localizedDescription
+        quizPresenter.expectedError = .invalidQuizName
         let failureExpectation = XCTestExpectation(description: "Fails to find quiz with quizName")
         quizPresenter.failureExpectation = failureExpectation
         
@@ -79,7 +79,7 @@ class QuizInteractorTests: XCTestCase {
         session.nextError = QuizRequestError.connectionError
         
         // Inject expected question, answer, and expectation in the mocked presenter
-        quizPresenter.expectedErrorMessage = QuizRequestError.connectionError.localizedDescription
+        quizPresenter.expectedError = .connectionError
         let failureExpectation = XCTestExpectation(description: "Connection error")
         quizPresenter.failureExpectation = failureExpectation
         
@@ -98,7 +98,7 @@ class QuizInteractorTests: XCTestCase {
         session.nextData = try! Data(contentsOf: jsonURL)
         
         // Inject expected question, answer, and success expectation in the mocked presenter
-        quizPresenter.expectedErrorMessage = QuizRequestError.jsonParsingError.localizedDescription
+        quizPresenter.expectedError = .jsonParsingError
         let failureExpectation = XCTestExpectation(description: "Cannot parse JSON data")
         quizPresenter.failureExpectation = failureExpectation
         
