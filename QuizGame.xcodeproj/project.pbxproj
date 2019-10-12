@@ -15,6 +15,7 @@
 		28A42A132352080500BB39C6 /* QuizRequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42A122352080500BB39C6 /* QuizRequestError.swift */; };
 		28A42A1623520BB600BB39C6 /* QuizPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42A1523520BB600BB39C6 /* QuizPresenter.swift */; };
 		28A42A1823524F7500BB39C6 /* malformed_json.json in Resources */ = {isa = PBXBuildFile; fileRef = 28A42A1723524F7500BB39C6 /* malformed_json.json */; };
+		28A42A1B23525E6900BB39C6 /* InteractorMockClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */; };
 		28FDC845235115540046AD09 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC844235115540046AD09 /* NetworkService.swift */; };
 		28FDC84B235116E50046AD09 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */; };
 		28FDC84D23511CAF0046AD09 /* URLSessionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */; };
@@ -47,6 +48,7 @@
 		28A42A122352080500BB39C6 /* QuizRequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizRequestError.swift; sourceTree = "<group>"; };
 		28A42A1523520BB600BB39C6 /* QuizPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizPresenter.swift; sourceTree = "<group>"; };
 		28A42A1723524F7500BB39C6 /* malformed_json.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = malformed_json.json; sourceTree = "<group>"; };
+		28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractorMockClasses.swift; sourceTree = "<group>"; };
 		28FDC844235115540046AD09 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		28FDC84A235116E50046AD09 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		28FDC84C23511CAF0046AD09 /* URLSessionProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocols.swift; sourceTree = "<group>"; };
@@ -190,6 +192,25 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		28A42A1C23525F2B00BB39C6 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				28A42A1D23525F3400BB39C6 /* Resources */,
+				28A42A1A23525E6900BB39C6 /* InteractorMockClasses.swift */,
+				28FDC85B235166250046AD09 /* QuizInteractorTests.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		28A42A1D23525F3400BB39C6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				28A42A1723524F7500BB39C6 /* malformed_json.json */,
+				28A42A0F23517A6900BB39C6 /* java_keywords.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		28FDC843235114990046AD09 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,9 +265,7 @@
 		28FDC85A235166020046AD09 /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
-				28A42A1723524F7500BB39C6 /* malformed_json.json */,
-				28A42A0F23517A6900BB39C6 /* java_keywords.json */,
-				28FDC85B235166250046AD09 /* QuizInteractorTests.swift */,
+				28A42A1C23525F2B00BB39C6 /* Interactor */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -370,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28FDC84B235116E50046AD09 /* NetworkServiceTests.swift in Sources */,
+				28A42A1B23525E6900BB39C6 /* InteractorMockClasses.swift in Sources */,
 				28FDC85F2351691A0046AD09 /* NetworkMockClasses.swift in Sources */,
 				28FDC85C235166250046AD09 /* QuizInteractorTests.swift in Sources */,
 			);
