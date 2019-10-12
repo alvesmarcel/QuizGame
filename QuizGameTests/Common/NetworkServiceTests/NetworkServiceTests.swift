@@ -13,33 +13,12 @@
 //  limitations under the License.
 //  ------------------------------------------------------------------------
 //  ABSTRACT:
-//      NetworkService unit tests.
+//      NetworkService unit tests. To allow offline testing, we use MockURLSession and MockURLSessionDataTask.
 
 import XCTest
 @testable import QuizGame
 
 class NetworkServiceTests: XCTestCase {
-    
-    // MARK: - Mock Classes
-    
-    class MockURLSession: URLSessionInterface {
-        var nextData: Data?
-        var nextError: Error?
-        var nextDataTask = MockURLSessionDataTask()
-        private (set) var lastURL: URL?
-        func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskInterface {
-            lastURL = url
-            completionHandler(nextData, nil, nextError)
-            return nextDataTask
-        }
-    }
-    
-    class MockURLSessionDataTask: URLSessionDataTaskInterface {
-        private (set) var resumeWasCalled = false
-        func resume() {
-            resumeWasCalled = true
-        }
-    }
     
     // MARK: - NetworkService Setup
     
@@ -53,7 +32,14 @@ class NetworkServiceTests: XCTestCase {
     }
 
     // MARK: - NetworkService Tests
+    
+    /// Test if the URL passed to requestData is the same that goes to URLSessionInterface's dataTask.
+    func testRequestURL() {
+        networkService.requestData(fromURL: baseURL) { (_, _) in }
+        XCTAssertEqual(session.lastURL!.absoluteString, baseURL.absoluteString)
+    }
 
+    /// Test if resume is called to start the data request.
     func testRequestStart() {
         let dataTask = MockURLSessionDataTask()
         session.nextDataTask = dataTask
@@ -61,6 +47,7 @@ class NetworkServiceTests: XCTestCase {
         XCTAssert(dataTask.resumeWasCalled)
     }
     
+    /// Test a successful request, where data != nil and error == nil.
     func testRequestSuccessful() {
         let expectedData = "{}".data(using: String.Encoding.utf8)
         session.nextData = expectedData
@@ -77,6 +64,7 @@ class NetworkServiceTests: XCTestCase {
         XCTAssertNil(actualError)
     }
     
+    /// Test a failed request, where data == nil and  error != nil.
     func testRequestFailed() {
         let expectedError = NSError(domain: "AnyError", code: 0, userInfo: nil)
         session.nextError = expectedError
