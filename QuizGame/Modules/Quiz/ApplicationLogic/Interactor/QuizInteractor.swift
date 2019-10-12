@@ -36,7 +36,7 @@ class QuizInteractor: QuizInteractorInterface {
     weak var presenter: QuizInteractorDelegate?
     let networkService: NetworkServiceInterface
     
-    init(networkService: NetworkServiceInterface) {
+    init(networkService: NetworkServiceInterface = NetworkService()) {
         self.networkService = networkService
     }
     

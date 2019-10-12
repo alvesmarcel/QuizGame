@@ -26,7 +26,7 @@ class NetworkService: NetworkServiceInterface {
     
     let session: URLSessionInterface
     
-    init(session: URLSessionInterface) {
+    init(session: URLSessionInterface = defaultSession()) {
         self.session = session
     }
     
