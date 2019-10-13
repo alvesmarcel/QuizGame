@@ -41,6 +41,7 @@ protocol QuizViewInterface: AnyObject {
     func setHitsLabelText(_ text: String)
     func enableGuessTextField()
     func updateStartResetButtonTitle(title: String)
+    func updateTimerLabelText(_ text: String)
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -128,6 +129,12 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
+    func updateTimerLabelText(_ text: String) {
+        DispatchQueue.main.async {
+            self.timerLabel.text = text
+        }
+    }
+    
 }
 
 // MARK: - Lifecycle
@@ -141,6 +148,7 @@ extension QuizView {
         configureGuessTextField()
         configureStartResetButton()
         configureAnswerTableView()
+        configureTimerLabel()
         
         // Inform the presenter that all the initial configuration is done
         presenter?.viewDidLoad()
@@ -171,6 +179,11 @@ extension QuizView {
     
     private func configureAnswerTableView() {
         answerTableView.dataSource = self
+    }
+    
+    private func configureTimerLabel() {
+        // This avoids the label "shaking" when it's updated
+        timerLabel.font = UIFont.monospacedSystemFont(ofSize: 24, weight: .bold)
     }
     
 }

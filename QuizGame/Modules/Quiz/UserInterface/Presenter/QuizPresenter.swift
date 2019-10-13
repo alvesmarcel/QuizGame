@@ -97,7 +97,9 @@ extension QuizPresenter: QuizInteractorDelegate {
     }
     
     func timerDidUpdate(remainingTime: Int) {
-        
+        let min = remainingTime / 60
+        let sec = remainingTime % 60
+        view?.updateTimerLabelText("0\(min):\(sec)")
     }
     
     func playerDidWinQuizGame() {
