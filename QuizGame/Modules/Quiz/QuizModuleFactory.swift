@@ -1,7 +1,11 @@
+import UIKit
+
 struct QuizModuleFactory {
     
     static func createQuizModule() -> QuizView {
-        let view = QuizView(nibName: "QuizView", bundle: nil)
+        guard let view = UIStoryboard(name: "QuizView", bundle: nil).instantiateInitialViewController() as? QuizView else {
+            preconditionFailure("An initial QuizView has to be configured")
+        }
         let presenter: QuizPresenterInterface & QuizInteractorDelegate = QuizPresenter()
         let interactor: QuizInteractorInterface = QuizInteractor()
 
