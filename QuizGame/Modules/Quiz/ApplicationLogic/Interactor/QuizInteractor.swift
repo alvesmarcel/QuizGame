@@ -66,7 +66,6 @@ class QuizInteractor: QuizInteractorInterface {
                 // Server Error: The JSON given by the server cannot be properly parsed
                 self?.presenter?.retrievingQuizFailed(with: .jsonParsingError)
             }
-            
         }
     }
     
