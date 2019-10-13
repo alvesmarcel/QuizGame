@@ -20,17 +20,17 @@
 protocol QuizPresenterInterface: AnyObject {
     var view: QuizViewInterface? { get set }
     var interactor: QuizInteractorInterface? { get set }
-    var acceptedAnswers: [String]? { get }
+    var presentingAnswers: [String]? { get }
     func viewDidLoad()
     func textFieldHasNewWord(word: String)
+    func startResetButtonTapped()
 }
 
 class QuizPresenter: QuizPresenterInterface {
     
     weak var view: QuizViewInterface?
     var interactor: QuizInteractorInterface?
-    var acceptedAnswers: [String]?
-    private var totalAnswersCount = 0
+    var presentingAnswers: [String]?
     
     func viewDidLoad() {
         view?.startLoadingScreen()
@@ -40,24 +40,11 @@ class QuizPresenter: QuizPresenterInterface {
     }
     
     func textFieldHasNewWord(word: String) {
-        guard let interactor = interactor else {
-            preconditionFailure("[QuizPresenter]: Interactor should be initialized")
-        }
-        if interactor.check(answer: word) {
-            addAcceptedAnswer(answer: word.capitalized)
-            
-            guard let answersCount = acceptedAnswers?.count else {
-                preconditionFailure("[QuizPresenter]: acceptedAnswers should be initialized")
-            }
-            
-            if answersCount == 1 {
-                view?.showTableView()
-            }
-            
-            updateHitsLabel(answersCount: answersCount, totalAnswersCount: totalAnswersCount)
-            view?.cleanTextField()
-            view?.updateTableView()
-        }
+        interactor?.check(answer: word)
+    }
+    
+    func startResetButtonTapped() {
+        interactor?.startGame()
     }
     
 }
@@ -83,13 +70,42 @@ extension QuizPresenter: QuizInteractorDelegate {
         view?.showHiddenItems()
         view?.setQuizTitle(quizQuestion)
         view?.dismissLoadingScreen()
-        acceptedAnswers = [String]()
-        totalAnswersCount = quizAnswer.count
-        updateHitsLabel(answersCount: 0, totalAnswersCount: totalAnswersCount)
+        updateHitsLabel(answersCount: 0, totalAnswersCount: quizAnswer.count)
+    }
+    
+    func newAcceptedAnswerAdded(answer: String) {
+        presentingAnswers?.append(answer.capitalized)
+        guard let answersCount = interactor?.acceptedAnswers?.count,
+              let remainingAnswersCount = interactor?.remainingAnswers?.count else {
+            preconditionFailure("[QuizPresenter]: acceptedAnswers and remainingAnswers should be initialized")
+        }
+        
+        if answersCount == 1 {
+            view?.showTableView()
+        }
+        
+        let totalAnswersCount = answersCount + remainingAnswersCount
+        updateHitsLabel(answersCount: answersCount, totalAnswersCount: totalAnswersCount)
+        view?.cleanTextField()
+        view?.updateTableView()
+    }
+    
+    func gameDidStart() {
+        presentingAnswers = [String]()
+        view?.enableGuessTextField()
+        view?.updateStartResetButtonTitle(title: "Reset")
+    }
+    
+    func timerDidUpdate(remainingTime: Int) {
+        
     }
     
     func playerDidWinQuizGame() {
         // TODO
+    }
+    
+    func playerDidLoseQuizGame() {
+        
     }
     
 }
@@ -97,11 +113,7 @@ extension QuizPresenter: QuizInteractorDelegate {
 // MARK: - Private Methods
 
 extension QuizPresenter {
-    
-    private func addAcceptedAnswer(answer: String) {
-        acceptedAnswers?.append(answer)
-    }
-    
+
     private func updateHitsLabel(answersCount: Int, totalAnswersCount: Int) {
         let answersCountStr = answersCount < 10 ? "0\(answersCount)" : "\(answersCount)"
         let totalAnswersCountStr = totalAnswersCount < 10 ? "0\(totalAnswersCount)" : "\(totalAnswersCount)"

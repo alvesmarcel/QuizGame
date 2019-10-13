@@ -23,21 +23,33 @@ import Foundation
 protocol QuizInteractorInterface: AnyObject {
     var presenter: QuizInteractorDelegate? { get set }
     var networkService: NetworkServiceInterface { get }
+    var acceptedAnswers: [String]? { get }
+    var remainingAnswers: Set<String>? { get }
     func requestNewQuiz(withName quizName: String)
-    func check(answer: String) -> Bool
+    func startGame()
+    func check(answer: String)
 }
 
 protocol QuizInteractorDelegate: AnyObject {
     func didRetrieveQuiz(quizQuestion: String, quizAnswer: [String])
     func retrievingQuizFailed(with error: QuizRequestError)
+    func newAcceptedAnswerAdded(answer: String)
+    func timerDidUpdate(remainingTime: Int)
+    func gameDidStart()
     func playerDidWinQuizGame()
+    func playerDidLoseQuizGame()
 }
 
 class QuizInteractor: QuizInteractorInterface {
     
     weak var presenter: QuizInteractorDelegate?
     let networkService: NetworkServiceInterface
-    private var answersToBeFound = Set<String>()
+    var acceptedAnswers: [String]?
+    var remainingAnswers: Set<String>?
+    
+    private var currentQuiz: QuizResource?
+    private var currentTime: Int = 300
+    private var timer: Timer?
     
     init(networkService: NetworkServiceInterface = NetworkService()) {
         self.networkService = networkService
@@ -64,8 +76,8 @@ class QuizInteractor: QuizInteractorInterface {
                 let quiz = try decoder.decode(QuizResource.self, from: jsonData)
                 
                 // Quiz retrieved and decoded successfully, so it is passed to the presenter
-                self?.answersToBeFound = Set(quiz.answer.compactMap { $0.lowercased() })
                 self?.presenter?.didRetrieveQuiz(quizQuestion: quiz.question, quizAnswer: quiz.answer)
+                self?.currentQuiz = quiz
             } catch {
                 // Server Error: The JSON given by the server cannot be properly parsed
                 self?.presenter?.retrievingQuizFailed(with: .jsonParsingError)
@@ -73,16 +85,31 @@ class QuizInteractor: QuizInteractorInterface {
         }
     }
     
-    func check(answer: String) -> Bool {
+    func startGame() {
+        guard let quiz = currentQuiz else {
+            preconditionFailure("[QuizInteractor]: currentQuiz should be initialized")
+        }
+        acceptedAnswers = [String]()
+        remainingAnswers = Set(quiz.answer.compactMap { $0.lowercased() })
+        currentTime = 300
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(decreaseTime), userInfo: nil, repeats: true)
+        presenter?.gameDidStart()
+    }
+    
+    func resetGame() {
+        
+    }
+    
+    func check(answer: String) {
         let lowercaseAnswer = answer.lowercased()
-        if answersToBeFound.contains(lowercaseAnswer) {
-            answersToBeFound.remove(lowercaseAnswer)
-            if answersToBeFound.isEmpty {
+        if let foundAnswer = remainingAnswers?.contains(lowercaseAnswer), foundAnswer {
+            acceptedAnswers?.append(answer)
+            remainingAnswers?.remove(lowercaseAnswer)
+            if let noMoreAnswer = remainingAnswers?.isEmpty, noMoreAnswer {
                 presenter?.playerDidWinQuizGame()
             }
-            return true
+            presenter?.newAcceptedAnswerAdded(answer: answer)
         }
-        return false
     }
     
 }
@@ -97,6 +124,16 @@ extension QuizInteractor {
             return URL(string: "https://codechallenge.arctouch.com/quiz/1")
         default:
             return nil
+        }
+    }
+    
+    @objc private func decreaseTime() {
+        currentTime -= 1
+        presenter?.timerDidUpdate(remainingTime: currentTime)
+        if currentTime <= 0 {
+            presenter?.playerDidLoseQuizGame()
+            timer?.invalidate()
+            timer = nil
         }
     }
     

@@ -39,6 +39,8 @@ protocol QuizViewInterface: AnyObject {
     func updateTableView()
     func showTableView()
     func setHitsLabelText(_ text: String)
+    func enableGuessTextField()
+    func updateStartResetButtonTitle(title: String)
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -114,6 +116,18 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
+    func enableGuessTextField() {
+        DispatchQueue.main.async {
+            self.guessTextField.isEnabled = true
+        }
+    }
+    
+    func updateStartResetButtonTitle(title: String) {
+        DispatchQueue.main.async {
+            self.startResetButton.setTitle(title, for: .normal)
+        }
+    }
+    
 }
 
 // MARK: - Lifecycle
@@ -157,6 +171,16 @@ extension QuizView {
     
     private func configureAnswerTableView() {
         answerTableView.dataSource = self
+    }
+    
+}
+
+// MARK: - Actions
+
+extension QuizView {
+    
+    @IBAction func onStartButtonTap(sender: UIButton) {
+        presenter?.startResetButtonTapped()
     }
     
 }
