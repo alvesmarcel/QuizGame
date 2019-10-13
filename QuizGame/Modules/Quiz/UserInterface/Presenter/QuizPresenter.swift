@@ -30,6 +30,7 @@ class QuizPresenter: QuizPresenterInterface {
     weak var view: QuizViewInterface?
     var interactor: QuizInteractorInterface?
     var acceptedAnswers: [String]?
+    private var totalAnswersCount = 0
     
     func viewDidLoad() {
         view?.startLoadingScreen()
@@ -40,13 +41,20 @@ class QuizPresenter: QuizPresenterInterface {
     
     func textFieldHasNewWord(word: String) {
         guard let interactor = interactor else {
-            preconditionFailure("Interactor should be initialized")
+            preconditionFailure("[QuizPresenter]: Interactor should be initialized")
         }
         if interactor.check(answer: word) {
-            if let firstItem = acceptedAnswers?.isEmpty, firstItem {
+            addAcceptedAnswer(answer: word.capitalized)
+            
+            guard let answersCount = acceptedAnswers?.count else {
+                preconditionFailure("[QuizPresenter]: acceptedAnswers should be initialized")
+            }
+            
+            if answersCount == 1 {
                 view?.showTableView()
             }
-            acceptedAnswers?.append(word.capitalized)
+            
+            updateHitsLabel(answersCount: answersCount, totalAnswersCount: totalAnswersCount)
             view?.cleanTextField()
             view?.updateTableView()
         }
@@ -75,13 +83,29 @@ extension QuizPresenter: QuizInteractorDelegate {
         view?.showHiddenItems()
         view?.setQuizTitle(quizQuestion)
         view?.dismissLoadingScreen()
-        view?.setHitsLabelText("00/\(quizAnswer.count)")
-        
         acceptedAnswers = [String]()
+        totalAnswersCount = quizAnswer.count
+        updateHitsLabel(answersCount: 0, totalAnswersCount: totalAnswersCount)
     }
     
     func playerDidWinQuizGame() {
         // TODO
+    }
+    
+}
+
+// MARK: - Private Methods
+
+extension QuizPresenter {
+    
+    private func addAcceptedAnswer(answer: String) {
+        acceptedAnswers?.append(answer)
+    }
+    
+    private func updateHitsLabel(answersCount: Int, totalAnswersCount: Int) {
+        let answersCountStr = answersCount < 10 ? "0\(answersCount)" : "\(answersCount)"
+        let totalAnswersCountStr = totalAnswersCount < 10 ? "0\(totalAnswersCount)" : "\(totalAnswersCount)"
+        view?.setHitsLabelText("\(answersCountStr)/\(totalAnswersCountStr)")
     }
     
 }
