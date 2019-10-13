@@ -35,6 +35,7 @@ class QuizInteractor: QuizInteractorInterface {
     
     weak var presenter: QuizInteractorDelegate?
     let networkService: NetworkServiceInterface
+    private var answersToBeFound = Set<String>()
     
     init(networkService: NetworkServiceInterface = NetworkService()) {
         self.networkService = networkService
@@ -61,12 +62,23 @@ class QuizInteractor: QuizInteractorInterface {
                 let quiz = try decoder.decode(QuizResource.self, from: jsonData)
                 
                 // Quiz retrieved and decoded successfully, so it is passed to the presenter
+                self?.answersToBeFound = Set(quiz.answer)
                 self?.presenter?.didRetrieveQuiz(quizQuestion: quiz.question, quizAnswer: quiz.answer)
             } catch {
                 // Server Error: The JSON given by the server cannot be properly parsed
                 self?.presenter?.retrievingQuizFailed(with: .jsonParsingError)
             }
         }
+    }
+    
+    func check(answer: String) -> Bool {
+        if answersToBeFound.contains(answer) {
+            answersToBeFound.remove(answer)
+            if answersToBeFound.isEmpty {
+                // Game is over, the player won
+            }
+        }
+        return false
     }
     
 }
