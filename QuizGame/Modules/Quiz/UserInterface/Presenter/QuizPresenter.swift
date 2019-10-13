@@ -23,7 +23,7 @@ protocol QuizPresenterInterface: AnyObject {
     var presentingAnswers: [String]? { get }
     func viewDidLoad()
     func textFieldHasNewWord(word: String)
-    func startResetButtonTapped()
+    func startResetButtonTapped(withButtonName buttonName: String)
 }
 
 class QuizPresenter: QuizPresenterInterface {
@@ -43,8 +43,12 @@ class QuizPresenter: QuizPresenterInterface {
         interactor?.check(answer: word)
     }
     
-    func startResetButtonTapped() {
-        interactor?.startGame()
+    func startResetButtonTapped(withButtonName buttonName: String) {
+        if buttonName == "Start" {
+            interactor?.startGame()
+        } else {
+            interactor?.resetGame()
+        }
     }
     
 }
@@ -75,25 +79,18 @@ extension QuizPresenter: QuizInteractorDelegate {
     
     func newAcceptedAnswerAdded(answer: String) {
         presentingAnswers?.append(answer.capitalized)
-        guard let answersCount = interactor?.acceptedAnswers?.count,
-              let remainingAnswersCount = interactor?.remainingAnswers?.count else {
-            preconditionFailure("[QuizPresenter]: acceptedAnswers and remainingAnswers should be initialized")
-        }
-        
-        if answersCount == 1 {
-            view?.showTableView()
-        }
-        
-        let totalAnswersCount = answersCount + remainingAnswersCount
-        updateHitsLabel(answersCount: answersCount, totalAnswersCount: totalAnswersCount)
-        view?.cleanTextField()
-        view?.updateTableView()
+        updateViewOnCurrentState()
     }
     
     func gameDidStart() {
         presentingAnswers = [String]()
         view?.enableGuessTextField()
         view?.updateStartResetButtonTitle(title: "Reset")
+        updateViewOnCurrentState()
+    }
+    
+    func gameDidStop() {
+        view?.updateStartResetButtonTitle(title: "Start")
     }
     
     func timerDidUpdate(remainingTime: Int) {
@@ -120,6 +117,22 @@ extension QuizPresenter {
         let answersCountStr = answersCount < 10 ? "0\(answersCount)" : "\(answersCount)"
         let totalAnswersCountStr = totalAnswersCount < 10 ? "0\(totalAnswersCount)" : "\(totalAnswersCount)"
         view?.setHitsLabelText("\(answersCountStr)/\(totalAnswersCountStr)")
+    }
+    
+    private func updateViewOnCurrentState() {
+        guard let answersCount = interactor?.acceptedAnswers?.count,
+              let remainingAnswersCount = interactor?.remainingAnswers?.count else {
+            preconditionFailure("[QuizPresenter]: acceptedAnswers and remainingAnswers should be initialized")
+        }
+        
+        if answersCount == 1 {
+            view?.showTableView()
+        }
+        
+        let totalAnswersCount = answersCount + remainingAnswersCount
+        updateHitsLabel(answersCount: answersCount, totalAnswersCount: totalAnswersCount)
+        view?.cleanTextField()
+        view?.updateTableView()
     }
     
 }

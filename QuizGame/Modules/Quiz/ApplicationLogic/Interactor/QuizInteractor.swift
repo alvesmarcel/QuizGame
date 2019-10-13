@@ -27,6 +27,7 @@ protocol QuizInteractorInterface: AnyObject {
     var remainingAnswers: Set<String>? { get }
     func requestNewQuiz(withName quizName: String)
     func startGame()
+    func resetGame()
     func check(answer: String)
 }
 
@@ -36,6 +37,7 @@ protocol QuizInteractorDelegate: AnyObject {
     func newAcceptedAnswerAdded(answer: String)
     func timerDidUpdate(remainingTime: Int)
     func gameDidStart()
+    func gameDidStop()
     func playerDidWinQuizGame()
     func playerDidLoseQuizGame()
 }
@@ -50,6 +52,7 @@ class QuizInteractor: QuizInteractorInterface {
     private var currentQuiz: QuizResource?
     private var currentTime: Int = 300
     private var timer: Timer?
+    private var gameState: GameState = .notStarted
     
     init(networkService: NetworkServiceInterface = NetworkService()) {
         self.networkService = networkService
@@ -86,18 +89,26 @@ class QuizInteractor: QuizInteractorInterface {
     }
     
     func startGame() {
-        guard let quiz = currentQuiz else {
-            preconditionFailure("[QuizInteractor]: currentQuiz should be initialized")
+        if gameState == .notStarted {
+            guard let quiz = currentQuiz else {
+                preconditionFailure("[QuizInteractor]: currentQuiz should be initialized")
+            }
+            acceptedAnswers = [String]()
+            remainingAnswers = Set(quiz.answer.compactMap { $0.lowercased() })
+            currentTime = 300
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(decreaseTime), userInfo: nil, repeats: true)
+            gameState = .playing
+            presenter?.gameDidStart()
         }
-        acceptedAnswers = [String]()
-        remainingAnswers = Set(quiz.answer.compactMap { $0.lowercased() })
-        currentTime = 300
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(decreaseTime), userInfo: nil, repeats: true)
-        presenter?.gameDidStart()
     }
     
     func resetGame() {
-        
+        if gameState == .playing {
+            timer?.invalidate()
+            timer = nil
+            gameState = .notStarted
+            presenter?.gameDidStop()
+        }
     }
     
     func check(answer: String) {

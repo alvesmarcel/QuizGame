@@ -193,7 +193,7 @@ extension QuizView {
 extension QuizView {
     
     @IBAction func onStartButtonTap(sender: UIButton) {
-        presenter?.startResetButtonTapped()
+        presenter?.startResetButtonTapped(withButtonName: sender.titleLabel?.text ?? "")
     }
     
 }
