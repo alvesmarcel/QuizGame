@@ -20,6 +20,7 @@
 protocol QuizPresenterInterface: AnyObject {
     var view: QuizViewInterface? { get set }
     var interactor: QuizInteractorInterface? { get set }
+    var acceptedAnswers: [String]? { get }
     func viewDidLoad()
 }
 
@@ -27,6 +28,7 @@ class QuizPresenter: QuizPresenterInterface {
     
     weak var view: QuizViewInterface?
     var interactor: QuizInteractorInterface?
+    var acceptedAnswers: [String]?
     
     func viewDidLoad() {
         view?.startLoadingScreen()
