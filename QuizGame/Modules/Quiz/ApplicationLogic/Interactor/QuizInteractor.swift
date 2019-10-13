@@ -24,11 +24,13 @@ protocol QuizInteractorInterface: AnyObject {
     var presenter: QuizInteractorDelegate? { get set }
     var networkService: NetworkServiceInterface { get }
     func requestNewQuiz(withName quizName: String)
+    func check(answer: String) -> Bool
 }
 
 protocol QuizInteractorDelegate: AnyObject {
     func didRetrieveQuiz(quizQuestion: String, quizAnswer: [String])
     func retrievingQuizFailed(with error: QuizRequestError)
+    func playerDidWinQuizGame()
 }
 
 class QuizInteractor: QuizInteractorInterface {
@@ -62,7 +64,7 @@ class QuizInteractor: QuizInteractorInterface {
                 let quiz = try decoder.decode(QuizResource.self, from: jsonData)
                 
                 // Quiz retrieved and decoded successfully, so it is passed to the presenter
-                self?.answersToBeFound = Set(quiz.answer)
+                self?.answersToBeFound = Set(quiz.answer.compactMap { $0.lowercased() })
                 self?.presenter?.didRetrieveQuiz(quizQuestion: quiz.question, quizAnswer: quiz.answer)
             } catch {
                 // Server Error: The JSON given by the server cannot be properly parsed
@@ -72,11 +74,13 @@ class QuizInteractor: QuizInteractorInterface {
     }
     
     func check(answer: String) -> Bool {
-        if answersToBeFound.contains(answer) {
-            answersToBeFound.remove(answer)
+        let lowercaseAnswer = answer.lowercased()
+        if answersToBeFound.contains(lowercaseAnswer) {
+            answersToBeFound.remove(lowercaseAnswer)
             if answersToBeFound.isEmpty {
-                // Game is over, the player won
+                presenter?.playerDidWinQuizGame()
             }
+            return true
         }
         return false
     }
