@@ -85,6 +85,7 @@ extension QuizPresenter: QuizInteractorDelegate {
     func gameDidStart() {
         presentingAnswers = [String]()
         view?.enableGuessTextField()
+        view?.hideTableView()
         view?.updateStartResetButtonTitle(title: "Reset")
         updateViewOnCurrentState()
     }

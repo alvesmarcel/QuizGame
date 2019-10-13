@@ -42,6 +42,7 @@ protocol QuizViewInterface: AnyObject {
     func enableGuessTextField()
     func updateStartResetButtonTitle(title: String)
     func updateTimerLabelText(_ text: String)
+    func hideTableView()
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -87,6 +88,7 @@ class QuizView: UIViewController, QuizViewInterface {
     
     func showAlert(title: String, text: String, buttonText: String? = "OK") {
         DispatchQueue.main.async {
+            self.view.endEditing(true)
             let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: buttonText, style: .default, handler: nil))
             self.present(alert, animated: true)
@@ -132,6 +134,12 @@ class QuizView: UIViewController, QuizViewInterface {
     func updateTimerLabelText(_ text: String) {
         DispatchQueue.main.async {
             self.timerLabel.text = text
+        }
+    }
+    
+    func hideTableView() {
+        DispatchQueue.main.async {
+            self.answerTableView.isHidden = true
         }
     }
     
