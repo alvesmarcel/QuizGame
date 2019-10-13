@@ -9,6 +9,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QuizView" customModule="QuizGame" customModuleProvider="target">
             <connections>
+                <outlet property="answerTableView" destination="kPf-aj-OmK" id="Xqk-Oz-PZv"/>
+                <outlet property="bottomViewVerticalSpaceConstraint" destination="61J-A6-iak" id="muV-B0-Aeh"/>
+                <outlet property="guessTextField" destination="S8Z-CC-GdB" id="FpQ-j2-eMN"/>
+                <outlet property="hitsLabel" destination="6pz-Ro-qpJ" id="yej-78-A0S"/>
+                <outlet property="questionLabel" destination="XG5-me-bdc" id="0rI-rS-jHx"/>
+                <outlet property="startResetButton" destination="LRP-xt-83R" id="26h-en-O0l"/>
+                <outlet property="timerLabel" destination="JiS-VK-Ijp" id="OkU-Qs-ztx"/>
                 <outlet property="view" destination="iN0-l3-epB" id="y9X-sS-2ZU"/>
             </connections>
         </placeholder>

@@ -27,6 +27,14 @@ protocol QuizViewInterface: AnyObject {
 
 class QuizView: UIViewController, QuizViewInterface {
     
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var guessTextField: UITextField!
+    @IBOutlet weak var answerTableView: UITableView!
+    @IBOutlet weak var hitsLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var startResetButton: UIButton!
+    @IBOutlet weak var bottomViewVerticalSpaceConstraint: NSLayoutConstraint!
+    
     var presenter: QuizPresenterInterface?
     
     func startLoadingScreen() {
