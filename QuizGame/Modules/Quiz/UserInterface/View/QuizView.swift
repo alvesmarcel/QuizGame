@@ -38,6 +38,7 @@ protocol QuizViewInterface: AnyObject {
     func cleanTextField()
     func updateTableView()
     func showTableView()
+    func setHitsLabelText(_ text: String)
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -104,6 +105,12 @@ class QuizView: UIViewController, QuizViewInterface {
     func showTableView() {
         DispatchQueue.main.async {
             self.answerTableView.isHidden = false
+        }
+    }
+    
+    func setHitsLabelText(_ text: String) {
+        DispatchQueue.main.async {
+            self.hitsLabel.text = text
         }
     }
     

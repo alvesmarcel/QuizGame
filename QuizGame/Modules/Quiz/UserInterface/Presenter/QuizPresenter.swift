@@ -75,6 +75,7 @@ extension QuizPresenter: QuizInteractorDelegate {
         view?.showHiddenItems()
         view?.setQuizTitle(quizQuestion)
         view?.dismissLoadingScreen()
+        view?.setHitsLabelText("00/\(quizAnswer.count)")
         
         acceptedAnswers = [String]()
     }
