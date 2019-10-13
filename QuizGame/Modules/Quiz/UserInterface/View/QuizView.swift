@@ -32,6 +32,7 @@ protocol QuizViewInterface: AnyObject {
     var presenter: QuizPresenterInterface? { get set }
     func startLoadingScreen()
     func dismissLoadingScreen()
+    func showHiddenItems()
     func setQuizTitle(_ title: String)
     func showErrorMessage(title: String, text: String)
 }
@@ -47,21 +48,42 @@ class QuizView: UIViewController, QuizViewInterface {
     @IBOutlet weak var bottomViewVerticalSpaceConstraint: NSLayoutConstraint!
     
     var presenter: QuizPresenterInterface?
+    private var loadingView: UIView?
     
     func startLoadingScreen() {
-        
+        DispatchQueue.main.async {
+            if let loadingView = Bundle.main.loadNibNamed("LoadingView", owner: nil, options: nil)?.first as? UIView {
+                self.loadingView = loadingView
+                self.view.addSubview(loadingView)
+            }
+        }
     }
     
     func dismissLoadingScreen() {
-        
+        DispatchQueue.main.async {
+            self.loadingView?.removeFromSuperview()
+        }
+    }
+    
+    func showHiddenItems() {
+        DispatchQueue.main.async {
+            self.questionLabel.isHidden = false
+            self.guessTextField.isHidden = false
+        }
     }
     
     func setQuizTitle(_ title: String) {
-        
+        DispatchQueue.main.async {
+            self.questionLabel.text = title
+        }
     }
     
     func showErrorMessage(title: String, text: String) {
-        
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
 }
@@ -80,9 +102,7 @@ extension QuizView {
         // Inform the presenter that all the initial configuration is done
         presenter?.viewDidLoad()
     }
-    
-    
-    
+
 }
 
 // MARK: - View Configuration

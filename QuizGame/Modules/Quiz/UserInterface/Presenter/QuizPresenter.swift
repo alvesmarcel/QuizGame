@@ -43,6 +43,7 @@ extension QuizPresenter: QuizInteractorDelegate {
         view?.dismissLoadingScreen()
         switch error {
         case .invalidQuizName:
+            // Currently, there's nothing that the user can do about this, since the quiz name is hardcoded
             view?.showErrorMessage(title: "Invalid Quiz Name", text: "The quiz name is invalid. Try choosing another quiz.")
         case .connectionError:
             view?.showErrorMessage(title: "Connection Error", text: "There was a connection error. Check your internet connection.")
@@ -54,8 +55,9 @@ extension QuizPresenter: QuizInteractorDelegate {
     }
     
     func didRetrieveQuiz(quizQuestion: String, quizAnswer: [String]) {
-        view?.dismissLoadingScreen()
+        view?.showHiddenItems()
         view?.setQuizTitle(quizQuestion)
+        view?.dismissLoadingScreen()
     }
     
 }
