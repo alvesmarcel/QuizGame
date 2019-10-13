@@ -98,6 +98,7 @@ extension QuizView {
         // Call all initial view configurations
         configureGuessTextField()
         configureStartResetButton()
+        configureAnswerTableView()
         
         // Inform the presenter that all the initial configuration is done
         presenter?.viewDidLoad()
@@ -122,6 +123,10 @@ extension QuizView {
     private func configureStartResetButton() {
         startResetButton.layer.masksToBounds = true
         startResetButton.layer.cornerRadius = 10.0
+    }
+    
+    private func configureAnswerTableView() {
+        answerTableView.dataSource = self
     }
     
 }
