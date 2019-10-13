@@ -60,13 +60,13 @@ extension QuizPresenter: QuizInteractorDelegate {
         switch error {
         case .invalidQuizName:
             // Currently, there's nothing that the user can do about this, since the quiz name is hardcoded
-            view?.showErrorMessage(title: "Invalid Quiz Name", text: "The quiz name is invalid. Try choosing another quiz.")
+            view?.showAlert(title: "Invalid Quiz Name", text: "The quiz name is invalid. Try choosing another quiz.", buttonText: nil)
         case .connectionError:
-            view?.showErrorMessage(title: "Connection Error", text: "There was a connection error. Check your internet connection.")
+            view?.showAlert(title: "Connection Error", text: "There was a connection error. Check your internet connection.", buttonText: nil)
         case .jsonParsingError:
             // Since there's nothing that the user can do about a JSON parsing error,
             // it's better to tell him/her to choose another quiz, if available.
-            view?.showErrorMessage(title: "Unavailable Quiz", text: "Right now this quiz is unavailable. Try another one.")
+            view?.showAlert(title: "Unavailable Quiz", text: "Right now this quiz is unavailable. Try another one.", buttonText: nil)
         }
     }
     
@@ -96,15 +96,24 @@ extension QuizPresenter: QuizInteractorDelegate {
     func timerDidUpdate(remainingTime: Int) {
         let min = remainingTime / 60
         let sec = remainingTime % 60
-        view?.updateTimerLabelText("0\(min):\(sec)")
+        let minStr = min < 10 ? "0\(min)" : "\(min)"
+        let secStr = sec < 10 ? "0\(sec)" : "\(sec)"
+        view?.updateTimerLabelText("\(minStr):\(secStr)")
     }
     
     func playerDidWinQuizGame() {
-        // TODO
+        view?.showAlert(title: "Congratulations", text: "Good job! You found all the answers on time. Keep up with the great work.", buttonText: "Play Again")
+        interactor?.resetGame()
     }
     
     func playerDidLoseQuizGame() {
-        
+        guard let answersCount = interactor?.acceptedAnswers?.count,
+              let remainingAnswersCount = interactor?.remainingAnswers?.count else {
+            preconditionFailure("[QuizPresenter]: acceptedAnswers and remainingAnswers should be initialized")
+        }
+        let totalAnswersCount = answersCount + remainingAnswersCount
+        view?.showAlert(title: "Time finished", text: "Sorry, time is up! You got \(answersCount) out of \(totalAnswersCount) answers.", buttonText: "Try Again")
+        interactor?.resetGame()
     }
     
 }

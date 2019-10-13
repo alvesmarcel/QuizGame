@@ -34,7 +34,7 @@ protocol QuizViewInterface: AnyObject {
     func dismissLoadingScreen()
     func showHiddenItems()
     func setQuizTitle(_ title: String)
-    func showErrorMessage(title: String, text: String)
+    func showAlert(title: String, text: String, buttonText: String?)
     func cleanTextField()
     func updateTableView()
     func showTableView()
@@ -85,10 +85,10 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
-    func showErrorMessage(title: String, text: String) {
+    func showAlert(title: String, text: String, buttonText: String? = "OK") {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: buttonText, style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }
