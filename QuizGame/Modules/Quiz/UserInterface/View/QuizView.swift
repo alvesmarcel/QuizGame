@@ -35,6 +35,9 @@ protocol QuizViewInterface: AnyObject {
     func showHiddenItems()
     func setQuizTitle(_ title: String)
     func showErrorMessage(title: String, text: String)
+    func cleanTextField()
+    func updateTableView()
+    func showTableView()
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -86,6 +89,24 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
+    func cleanTextField() {
+        DispatchQueue.main.async {
+            self.guessTextField.text = ""
+        }
+    }
+    
+    func updateTableView() {
+        DispatchQueue.main.async {
+            self.answerTableView.reloadData()
+        }
+    }
+    
+    func showTableView() {
+        DispatchQueue.main.async {
+            self.answerTableView.isHidden = false
+        }
+    }
+    
 }
 
 // MARK: - Lifecycle
@@ -118,6 +139,8 @@ extension QuizView {
         guessTextField.layer.cornerRadius = 5.0;
         guessTextField.layer.backgroundColor = UIColor.white.cgColor
         guessTextField.layer.borderColor = UIColor.clear.cgColor
+        
+        guessTextField.delegate = self
     }
     
     private func configureStartResetButton() {

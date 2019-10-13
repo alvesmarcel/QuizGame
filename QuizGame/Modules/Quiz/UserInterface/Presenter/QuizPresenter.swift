@@ -22,6 +22,7 @@ protocol QuizPresenterInterface: AnyObject {
     var interactor: QuizInteractorInterface? { get set }
     var acceptedAnswers: [String]? { get }
     func viewDidLoad()
+    func textFieldHasNewWord(word: String)
 }
 
 class QuizPresenter: QuizPresenterInterface {
@@ -35,6 +36,20 @@ class QuizPresenter: QuizPresenterInterface {
         // Currently, Java is the only possible Quiz.
         // In the future, if more quizzes are supported, this needs to be changed.
         interactor?.requestNewQuiz(withName: "Java")
+    }
+    
+    func textFieldHasNewWord(word: String) {
+        guard let interactor = interactor else {
+            preconditionFailure("Interactor should be initialized")
+        }
+        if interactor.check(answer: word) {
+            if let firstItem = acceptedAnswers?.isEmpty, firstItem {
+                view?.showTableView()
+            }
+            acceptedAnswers?.append(word.capitalized)
+            view?.cleanTextField()
+            view?.updateTableView()
+        }
     }
     
 }
@@ -60,6 +75,12 @@ extension QuizPresenter: QuizInteractorDelegate {
         view?.showHiddenItems()
         view?.setQuizTitle(quizQuestion)
         view?.dismissLoadingScreen()
+        
+        acceptedAnswers = [String]()
+    }
+    
+    func playerDidWinQuizGame() {
+        // TODO
     }
     
 }
