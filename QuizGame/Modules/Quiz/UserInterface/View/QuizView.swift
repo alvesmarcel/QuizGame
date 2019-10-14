@@ -43,6 +43,7 @@ protocol QuizViewInterface: AnyObject {
     func updateStartResetButtonTitle(title: String)
     func updateTimerLabelText(_ text: String)
     func hideTableView()
+    func enableStartResetButton()
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -95,11 +96,11 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
-    func showAlert(title: String, text: String, buttonText: String? = "OK") {
+    func showAlert(title: String, text: String, buttonText: String?) {
         DispatchQueue.main.async {
             self.view.endEditing(true)
             let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: buttonText, style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: buttonText ?? "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
     }
@@ -149,6 +150,12 @@ class QuizView: UIViewController, QuizViewInterface {
     func hideTableView() {
         DispatchQueue.main.async {
             self.answerTableView.isHidden = true
+        }
+    }
+    
+    func enableStartResetButton() {
+        DispatchQueue.main.async {
+            self.startResetButton.isEnabled = true
         }
     }
     

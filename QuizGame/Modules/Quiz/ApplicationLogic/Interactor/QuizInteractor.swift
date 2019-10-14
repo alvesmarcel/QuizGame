@@ -91,7 +91,8 @@ class QuizInteractor: QuizInteractorInterface {
     func startGame() {
         if gameState == .notStarted {
             guard let quiz = currentQuiz else {
-                preconditionFailure("[QuizInteractor]: currentQuiz should be initialized")
+                print("[QuizInteractor]: currentQuiz is empty. Failing silently.")
+                return
             }
             acceptedAnswers = [String]()
             remainingAnswers = Set(quiz.answer.compactMap { $0.lowercased() })

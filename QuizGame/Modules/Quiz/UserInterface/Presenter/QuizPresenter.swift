@@ -74,6 +74,7 @@ extension QuizPresenter: QuizInteractorDelegate {
         view?.showHiddenItems()
         view?.setQuizTitle(quizQuestion)
         view?.dismissLoadingScreen()
+        view?.enableStartResetButton()
         updateHitsLabel(answersCount: 0, totalAnswersCount: quizAnswer.count)
     }
     
