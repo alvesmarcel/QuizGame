@@ -133,7 +133,8 @@
                     </view>
                     <connections>
                         <outlet property="answerTableView" destination="xCX-FA-w2n" id="9v9-km-fSF"/>
-                        <outlet property="bottomViewVerticalSpaceConstraint" destination="Ie5-Qw-oVY" id="nYq-Zc-UnI"/>
+                        <outlet property="bottomView" destination="Ie5-Qw-oVY" id="Oem-1o-vda"/>
+                        <outlet property="bottomViewConstraint" destination="qwX-Q4-69j" id="8sP-ch-aTl"/>
                         <outlet property="guessTextField" destination="T2L-yW-zxM" id="Jcv-91-D0E"/>
                         <outlet property="hitsLabel" destination="s69-2E-G4O" id="cTT-Ph-FIq"/>
                         <outlet property="questionLabel" destination="yfA-7r-xrE" id="KZ4-vQ-0ET"/>

@@ -53,7 +53,8 @@ class QuizView: UIViewController, QuizViewInterface {
     @IBOutlet weak var hitsLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var startResetButton: UIButton!
-    @IBOutlet weak var bottomViewVerticalSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomView: UIView!
     
     var presenter: QuizPresenterInterface?
     private var loadingView: UIView?
@@ -161,6 +162,16 @@ extension QuizView {
         // Inform the presenter that all the initial configuration is done
         presenter?.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
 
 }
 
@@ -192,6 +203,16 @@ extension QuizView {
     private func configureTimerLabel() {
         // This avoids the label "shaking" when it's updated
         timerLabel.font = UIFont.monospacedSystemFont(ofSize: 24, weight: .bold)
+    }
+    
+    @objc func keyboardChange(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        
+        // Calculate the vertical displacement
+        // TODO: Change the constraint using an animation that matches the keyboard animation
+        let verticalDistance = view.frame.height - keyboardFrame.minY - bottomView.frame.height
+        self.bottomViewConstraint.constant = verticalDistance >= 0 ? verticalDistance : 0
     }
     
 }
