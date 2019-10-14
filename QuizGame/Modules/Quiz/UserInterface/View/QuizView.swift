@@ -62,8 +62,16 @@ class QuizView: UIViewController, QuizViewInterface {
     func startLoadingScreen() {
         DispatchQueue.main.async {
             if let loadingView = Bundle.main.loadNibNamed("LoadingView", owner: nil, options: nil)?.first as? UIView {
-                self.loadingView = loadingView
                 self.view.addSubview(loadingView)
+                loadingView.translatesAutoresizingMaskIntoConstraints = false
+                let topConstraint = NSLayoutConstraint(item: loadingView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+                let bottomConstraint = NSLayoutConstraint(item: loadingView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
+                let leftConstraint = NSLayoutConstraint(item: loadingView, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0)
+                let rightConstraint = NSLayoutConstraint(item: loadingView, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1, constant: 0)
+                self.view.addConstraints([topConstraint, bottomConstraint, leftConstraint, rightConstraint])
+                
+                self.loadingView = loadingView
+                
             }
         }
     }
