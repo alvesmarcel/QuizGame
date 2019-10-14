@@ -23,4 +23,27 @@ class MockPresenter: QuizInteractorDelegate {
         failureExpectation!.fulfill()
     }
     
+    func newAcceptedAnswerAdded(answer: String) {
+        // TODO
+    }
+    
+    func timerDidUpdate(remainingTime: Int) {
+        // TODO
+    }
+    
+    func gameDidStart() {
+        // TODO
+    }
+    
+    func gameDidStop() {
+        // TODO
+    }
+    
+    func playerDidWinQuizGame() {
+        // TODO
+    }
+    
+    func playerDidLoseQuizGame() {
+        // TODO
+    }
 }
