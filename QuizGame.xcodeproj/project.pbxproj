@@ -168,7 +168,6 @@
 			isa = PBXGroup;
 			children = (
 				28F31AE423528EF10022C64C /* QuizModuleFactory.swift */,
-				28F31AE123526AB60022C64C /* Errors */,
 				28066AAC235112DC003BBC7F /* UserInterface */,
 				28066AAD235112E6003BBC7F /* ApplicationLogic */,
 			);
@@ -243,14 +242,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		28F31AE123526AB60022C64C /* Errors */ = {
-			isa = PBXGroup;
-			children = (
-				28A42A122352080500BB39C6 /* QuizRequestError.swift */,
-			);
-			path = Errors;
-			sourceTree = "<group>";
-		};
 		28FDC843235114990046AD09 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +271,7 @@
 		28FDC853235129A60046AD09 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				28A42A122352080500BB39C6 /* QuizRequestError.swift */,
 				28FDC854235129BA0046AD09 /* QuizResource.swift */,
 				28B99CA42353E470003A66F4 /* GameState.swift */,
 			);

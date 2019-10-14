@@ -1,19 +1,7 @@
-//  Copyright 2019 ArcTouch LLC.
-//
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
-//  ------------------------------------------------------------------------
 //  ABSTRACT:
-//      QuizView is a UIViewController subclass that contains all the UI of the Quiz Module.
+//      QuizView is a UIViewController subclass that configure all the UI of the Quiz Module.
+//      The UI elements were created using the storyboard (QuizView.storyboard) and a xib file (LoadingView.xib).
+//      QuizView is passive and only requests data from the presenter when some UITableViewDataSource requires.
 //
 //  NOTES:
 //      - It was decided to avoid the use of a UINavigationBar (or UINavigationController) because Apple discourages resizing
@@ -25,6 +13,11 @@
 //             them."
 //        Also, large title configuration seems to be suitable for one line titles, not multiline titles. All solutions for
 //        multiline titles are hacky and should face problems in the future.
+//
+//  KNOWN ISSUES:
+//      - AutoLayout will break some constraints in landscape orientation. The reason is that some elements are too big, and, when
+//        the keyboard appears, there's not enough space on screen. For this reason, the UI needs to be reviewed for landscape
+//        orientation.
 
 import UIKit
 
@@ -32,18 +25,19 @@ protocol QuizViewInterface: AnyObject {
     var presenter: QuizPresenterInterface? { get set }
     func startLoadingScreen()
     func dismissLoadingScreen()
-    func showHiddenItems()
-    func setQuizTitle(_ title: String)
-    func showAlert(title: String, text: String, buttonText: String?)
-    func cleanTextField()
-    func updateTableView()
+    func showQuestionLabel()
+    func showGuessTextField()
     func showTableView()
+    func setQuizTitle(_ title: String)
     func setHitsLabelText(_ text: String)
+    func displayAlert(title: String, text: String, buttonText: String?)
+    func cleanTextField()
+    func hideTableView()
     func enableGuessTextField()
+    func enableStartResetButton()
+    func updateTableView()
     func updateStartResetButtonTitle(title: String)
     func updateTimerLabelText(_ text: String)
-    func hideTableView()
-    func enableStartResetButton()
 }
 
 class QuizView: UIViewController, QuizViewInterface {
@@ -72,7 +66,6 @@ class QuizView: UIViewController, QuizViewInterface {
                 self.view.addConstraints([topConstraint, bottomConstraint, leftConstraint, rightConstraint])
                 
                 self.loadingView = loadingView
-                
             }
         }
     }
@@ -83,9 +76,14 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
-    func showHiddenItems() {
+    func showQuestionLabel() {
         DispatchQueue.main.async {
             self.questionLabel.isHidden = false
+        }
+    }
+    
+    func showGuessTextField() {
+        DispatchQueue.main.async {
             self.guessTextField.isHidden = false
         }
     }
@@ -96,7 +94,7 @@ class QuizView: UIViewController, QuizViewInterface {
         }
     }
     
-    func showAlert(title: String, text: String, buttonText: String?) {
+    func displayAlert(title: String, text: String, buttonText: String?) {
         DispatchQueue.main.async {
             self.view.endEditing(true)
             let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)

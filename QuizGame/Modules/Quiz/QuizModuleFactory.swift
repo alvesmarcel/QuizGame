@@ -1,6 +1,11 @@
+//  ABSTRACT:
+//      QuizModuleFactory connects (inject dependencies) the VIPER parts of the Quiz module, and returns a QuizView object.
+
 import UIKit
 
 struct QuizModuleFactory {
+    
+    private init() {}
     
     static func createQuizModule() -> QuizView {
         guard let view = UIStoryboard(name: "QuizView", bundle: nil).instantiateInitialViewController() as? QuizView else {

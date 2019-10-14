@@ -1,3 +1,6 @@
+//  ABSTRACT:
+//      UITableViewDataSource fetches the items that need to be displayed in the table view from QuizPresenter.
+
 import UIKit
 
 extension QuizView: UITableViewDataSource {

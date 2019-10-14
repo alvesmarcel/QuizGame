@@ -1,5 +1,5 @@
 //  ABSTRACT:
-//      Useful extensions to some UIKit classes.
+//      Useful extensions for some UIKit classes.
 
 import UIKit
 

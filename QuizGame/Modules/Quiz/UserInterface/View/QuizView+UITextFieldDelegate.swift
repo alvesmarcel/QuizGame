@@ -1,3 +1,6 @@
+//  ABSTRACT:
+//      UITextFieldDelegate informs the text field events to the QuizPresenter.
+
 import UIKit
 
 extension QuizView: UITextFieldDelegate {
